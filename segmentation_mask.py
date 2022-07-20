@@ -9,14 +9,13 @@ def getImages():
     Get images from the input folder
     """
     for img in os.listdir(r"./input"):
-        yield cv2.imread(r"./input/"+img)
+        yield cv2.cvtColor(cv2.imread(r"./input/"+img), cv2.COLOR_BGR2RGB)
 
 
 def preprocess(img):
     """
     Preprocess the image by changing the color space to RGB and reshaping the image to 3 arrays
     """
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return np.float32(img.reshape((-1, 3)))
 
 
@@ -48,7 +47,11 @@ def ShowImage(reducedImg, labels):
 
     fig, axs = plt.subplots(1, 2)
     axs[0].imshow(labels)
+    axs[0].axis("off")
     axs[1].imshow(reducedImg)
+    axs[1].axis("off")
+
+    # plt.savefig("test.png", bbox_inches='tight')
     plt.show()
 
 
@@ -67,7 +70,7 @@ def kMeans(img, maxIterations, centroid):
     # label the image with the closest color
     labels = labelInialCentroids(centroid, reducedPredImg)
     # !show images
-    # ShowImage(reducedImg, labels)
+    ShowImage(reducedImg, labels)
     # preform k-means clustering
     ret, newLabel, center = cv2.kmeans(
         predImg, 2, bestLabels=labels, criteria=(cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, maxIterations, 255.0), attempts=10, flags=cv2.KMEANS_USE_INITIAL_LABELS, centers=np.array([centroid, [0, 0, 0]]))

@@ -1,2 +1,0 @@
-# aUToronto python coding challenge
- 
