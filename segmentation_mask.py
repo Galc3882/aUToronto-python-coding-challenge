@@ -10,6 +10,10 @@ def getImages():
     Creates a generator to iterate over the images
     Sends the image and the name of the image as a tuple
     """
+    # if folder does not exist, return
+    if not os.path.exists(r"./input"):
+        return
+
     for img in os.listdir(r"./input"):
         # changes the image from BGR to RGB
         yield (cv2.cvtColor(cv2.imread(r"./input/"+img), cv2.COLOR_BGR2RGB), img)
@@ -84,6 +88,10 @@ def main():
     and creates a mask for each image,
     then stores the mask in the output folder
     """
+    # if output folder does not exist, create it
+    if not os.path.exists(r"./output"):
+        os.mkdir(r"./output")
+    # create a SegmentationMask object
     seg = SegmentationMask()
     for img in getImages():
         # label the image with the closest color
