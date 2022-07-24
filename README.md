@@ -28,7 +28,13 @@ While the performance for the segmentation mask is pretty good, the program does
 There are a few known bugs with the program, the main one is that it picks out the biggest blob of orange, then saves all the blobs that are at least 30% as big as it. That means that if there is another orange item in the picture that in bigger or at least 30% as big as the barrels, it will be included. Additionally, if a similar orange color on close (behind or in front) to the barrel, they will be considered as the same blob of color.
 If the lighting is bad, parts of the orange color might not be within range of the program and only part of the barrel will be in the segmentation mask. 
 
-## next steps:
+## Example of bad detection:
+
+![Figure_1](https://user-images.githubusercontent.com/86870298/180654217-2bb1df07-e74a-4928-ba03-c724295112df.png)
+
+![Figure_2](https://user-images.githubusercontent.com/86870298/180654218-7e1730de-2f17-42c0-835b-9618750affe2.png)
+
+## Next steps:
 I would:
 - investigate fixing the known bugs.
 - clean the mask outline.
