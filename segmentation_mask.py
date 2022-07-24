@@ -21,8 +21,12 @@ def getImages():
 
 class SegmentationMask:
     def __init__(self):
-        self.mask = None
-        self.stack = []
+        self.mask = None # mask for the image as a numpy matrix
+        self.stack = [] # contour stack
+
+        # boundaries for orange color range values
+        self.lower = np.array([150, 100, 20])
+        self.upper = np.array([180, 255, 255])
 
     def maskify(self, img):
         """
@@ -30,15 +34,9 @@ class SegmentationMask:
         """
         # RGB to HSV
         HSVImg = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-
-        # boundaries for orange color range values
-        lower2 = np.array([150, 100, 20])
-        upper2 = np.array([180, 255, 255])
-
-        
-
+    
         # create a mask for the orange color
-        self.mask = cv2.inRange(HSVImg, lower2, upper2)
+        self.mask = cv2.inRange(HSVImg, self.lower, self.upper)
 
         # find all the contours in the mask
         contour, _ = cv2.findContours(
